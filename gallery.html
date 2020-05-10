@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Galery</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+	<div class="gallery" id="gallery1">
+		<div class="fhotos">
+			<img src="img/1.jpg" alt="" class="active">
+			<img src="img/2.jpg" alt="">
+			<img src="img/3.jpg" alt="">
+			<img src="img/4.jpg" alt="">
+			<img src="img/5.jpg" alt="">
+			<img src="img/6.jpg" alt="">
+			<img src="img/7.jpg" alt="">
+			<img src="img/8.jpg" alt="">
+		</div>
+		<div class="buttons">
+			<input type="button" value = "Назад" class="prev">
+			<input type="button" value = "Вперед" class="next">
+		</div>
+	</div>
+
+	<div class="gallery" id="gallery2" data-rate="3000">
+		<div class="fhotos">
+			<img src="img/1.jpg" alt="" class="active">
+			<img src="img/2.jpg" alt="">
+			<img src="img/3.jpg" alt="">
+			<img src="img/4.jpg" alt="">
+			<img src="img/5.jpg" alt="">
+			<img src="img/6.jpg" alt="">
+			<img src="img/7.jpg" alt="">
+			<img src="img/8.jpg" alt="">
+		</div>
+		<div class="buttons">
+			<input type="button" value = "Назад" class="prev">
+			<input type="button" value = "Вперед" class="next">
+		</div>
+	</div>
+	
+	
+<script>
+
+	let gallerys = document.querySelectorAll(".gallery");
+	for(let i = 0; i < gallerys.length; i++) new Slider(gallerys[i].id);
+
+	function Slider(id) {
+		console.log(id);
+		this.images = document.querySelectorAll('#' + id + ' .fhotos img');
+		this.btnPrev = document.querySelector('#' + id + ' .buttons .prev');
+		this.btnNext = document.querySelector('#' + id + ' .buttons .next');
+		this.rate = parseInt(document.querySelector('#' + id).getAttribute('data-rate'));
+		if(this.rate > 0) {
+			this.auto = true;
+		} else {
+			this.auto = false;
+		}
+		let i = 0;
+		this.prev = function () {
+			this.images[i].classList.remove('active');
+			i--;
+			if(i<0) i=this.images.length-1;
+			this.images[i].classList.add('active');
+		}
+		this.next = function () {
+			this.images[i].classList.remove('active');
+			i++;
+			if(i>=this.images.length) i=0;
+			this.images[i].classList.add('active');
+		}
+		this.btnNext.onclick = ()=>{this.next()};
+		this.btnPrev.onclick = ()=>{this.prev()};
+		if(this.auto){
+			setInterval(()=>{this.next()}, this.rate);
+		}
+	}
+
+</script>
+</body>
+</html>
+ 
+
+
